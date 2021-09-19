@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <import type="com.nagwa.library.R"/>
+        <variable
+            name="item"
+            type="com.nagwa.library.presentation.fragment.LibraryItem" />
+    </data>
+
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardCornerRadius="@dimen/_8sdp"
+        android:layout_margin="@dimen/_8sdp"
+        android:animateLayoutChanges="true">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/_8sdp">
+
+
+            <TextView
+                android:id="@+id/tv_name"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
+                android:textStyle="bold"
+                android:text="@{item.name}"
+                android:textAlignment="viewStart"
+                app:layout_constraintEnd_toStartOf="@+id/fab_open"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="@tools:sample/full_names" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chip_type"
+                setChipBgByType="@{item.type}"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="@id/tv_name"
+                app:layout_constraintTop_toBottomOf="@id/tv_name"
+                android:textColor="@color/white"
+                tools:text="Video" />
+
+            <com.google.android.material.progressindicator.LinearProgressIndicator
+                android:id="@+id/pb"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="parent"
+                android:layout_marginEnd="@dimen/_8sdp"
+                app:trackCornerRadius="@dimen/_8sdp"
+                app:layout_constraintTop_toTopOf="@id/img_download_gif"
+                app:layout_constraintEnd_toStartOf="@id/img_download_gif"
+                app:layout_constraintBottom_toBottomOf="@id/img_download_gif"
+                app:visibleGone="@{item.isDownloading()}"
+                />
+
+            <ImageView
+                android:id="@+id/img_download_gif"
+                android:layout_width="@dimen/_24sdp"
+                android:layout_height="@dimen/_24sdp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/chip_type"
+                app:visibleGone="@{item.isDownloading()}"
+                loadGif="@{R.raw.download}"
+                />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/fab_open"
+                style="@style/MaterialButton.IconOnly"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:visibleGone="@{item.saved}"
+                app:icon="@drawable/ic_open"
+                tools:ignore="ContentDescription" />
+
+
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </com.google.android.material.card.MaterialCardView>
+
+</layout>
